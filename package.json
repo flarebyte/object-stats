@@ -36,7 +36,11 @@
     "object statistics",
     "introspection"
   ],
-  "author": "olih <bitbucket.olivier.4aswabra@flarebyte.com>",
+  "author": {
+    "name": "Olivier Huin",
+    "email": "npm.olivier.huin@flarebyte.com",
+    "url": "https://github.com/olih"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/flarebyte/object-stats/issues"
@@ -56,5 +60,10 @@
     "tap-spec": "*",
     "tape": "*",
     "watch": "*"
+  },
+  "dependencies": {
+    "joi": "^7.2.3",
+    "lodash": "^4.2.1",
+    "string": "^3.3.1"
   }
 }
