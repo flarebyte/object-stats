@@ -31,8 +31,48 @@ export default function (conf) {
     const ifHexa = isHexa(v) ? 'hexa' : '';
 
     const format = makeName([ifEmail, ifHexa, ifGuid, ifUri, ifIsoDate]);
-    const size = type === 'array object'  || type === 'object' ? _.size(v) : _.size(`${v}`);
+    const size = type === 'array object'  || type === 'object' ? _.size(v): _.size(`${v}`);
     return {type, format, size};
   }
-  return {analyze}
+
+  const analyzeObject = (v, stack, current, analyzed) => {
+    const keys = _.keys(v).sort() ;
+    _.forEach(keys, key => {
+      const keyCurrent = _.cloneDeep(current).push(key);
+      const value = v[key];
+      doDeepAnalyze(value, stack, keyCurrent);
+    });
+  }
+
+  const analyzeArray = (v, stack, current, analyzed) => {
+    let keyCurrent = 0;
+    _.forEach(v, value => {
+      keyCurrent++;
+      doDeepAnalyze(value, stack, keyCurrent);
+    });
+  }
+
+  const analyzeValue = (v, stack, current, analyzed) => {
+    const path = current.join('/');
+    const type = v.type;
+    const size = v.size;
+    stack.push({path, type, size});
+  }
+
+  const doDeepAnalyze = (v, stack, current) => {
+    const analyzed = analyze(v);
+    switch(analyzed.type) {
+      case 'object': analyzeObject(v, stack, current, analyzed); break;
+      case 'array object': analyzeArray(v, stack, current, analyzed); break;
+      case '': ; break;
+      default: analyzeValue(v, stack, current, analyzed); break;
+
+    }
+  }
+  const deepAnalyze = v => {
+    const stack = [];
+    return doDeepAnalyze(v, stack, []);
+    return stack;
+  }
+  return {analyze, deepAnalyze}
 }

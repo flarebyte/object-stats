@@ -97,3 +97,26 @@ test('should detect iso date', (t) => {
   t.plan(1)
   t.equal(vAnalyzer.analyze('2016-02-06T20:37:47+00:00').format, 'iso-date', 'iso-date')
 })
+
+test('should analyze a complex object', (t) => {
+  t.plan(1)
+  const complex = {
+    a: ['a', 'b', 'c'],
+    b: {
+      c: ['e', 'f'],
+      d: [12, true],
+      e: /[a]+/,
+      f: [
+        {
+          g: 'string',
+          h: ['x','y', 'z']
+        }
+      ]
+    }
+  };
+
+  const expected = [
+
+  ];
+  t.equal(vAnalyzer.deepAnalyze(complex), expected, 'complex object')
+})
