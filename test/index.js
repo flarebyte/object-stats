@@ -1,7 +1,8 @@
-import test from "tape"
-import objectStats from "../src"
+import test from 'tape'
+import objectStats from '../src'
+require('./value-analyzer.js')
 
-test("objectStats", (t) => {
+test('objectStats', (t) => {
   t.plan(1)
-  t.equal(true, objectStats(), "return true")
+  t.equal(true, objectStats(), 'return true')
 })

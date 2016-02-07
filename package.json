@@ -46,6 +46,9 @@
     "url": "https://github.com/flarebyte/object-stats/issues"
   },
   "homepage": "https://github.com/flarebyte/object-stats#readme",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.4.5",
     "babel-core": "^6.4.5",
