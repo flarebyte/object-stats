@@ -5,6 +5,8 @@ const isEmail = value => Joi.validate(value, Joi.string().email()).error === nul
 const isUri = value => Joi.validate(value, Joi.string().uri()).error === null;
 const isGuid = value => Joi.validate(value, Joi.string().guid()).error === null;
 const isIsoDate = value => Joi.validate(value, Joi.string().isoDate()).error === null;
+const isHexa = value => Joi.validate(value, Joi.string().hex()).error === null;
+const makeName = list =>  list.join(' ').trim().replace(/\s+/g,' ');
 
 export default function (conf) {
   const analyze = v => {
@@ -18,17 +20,19 @@ export default function (conf) {
     const ifRegex = _.isRegExp(v) ? 'regex' : '';
     const ifArray = _.isArray(v) ? 'array' : '';
     const ifObject = _.isObject(v) ? 'object' : '';
+    const ifFunction = _.isFunction(v) ? 'function' : '';
 
-    const type = [ifNull, ifUndefined, ifString,
-       ifBoolean, ifInteger, ifNumber, ifDate, ifRegex, ifArray, ifObject].join(' ').trim().replace(/\s+/g,' ');
+    const type = makeName([ifNull, ifUndefined, ifString,
+       ifBoolean, ifInteger, ifNumber, ifDate, ifRegex, ifArray, ifFunction, ifObject]);
     const ifGuid = isGuid(v) ? 'GUID' : '';
     const ifEmail = isEmail(v) ? 'email' : '';
     const ifUri = isUri(v) ? 'URI' : '';
     const ifIsoDate = isIsoDate(v) ? 'iso-date' : '';
+    const ifHexa = isHexa(v) ? 'hexa' : '';
 
-    const format = [ifEmail, ifGuid, ifUri, ifIsoDate].join('');
-
-    return {type, format};
+    const format = makeName([ifEmail, ifHexa, ifGuid, ifUri, ifIsoDate]);
+    const size = type === 'array object'  || type === 'object' ? _.size(v) : _.size(`${v}`);
+    return {type, format, size};
   }
   return {analyze}
 }
