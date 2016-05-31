@@ -67,6 +67,7 @@
   "dependencies": {
     "joi": "^7.2.3",
     "lodash": "^4.2.1",
-    "string": "^3.3.1"
+    "string": "^3.3.1",
+    "traverse": "^0.6.6"
   }
 }
