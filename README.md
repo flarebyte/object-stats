@@ -39,6 +39,8 @@ const stats = objectStats().analyse(obj); //some statistics
 * Deploy to a remote origin with `npm run deploy`.
 * Bump version and publish a package with `npm run major` or `minor/patch`
 
+# TODO
+ * Review code and check are the missing features
 
 ## License
 
