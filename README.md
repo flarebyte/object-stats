@@ -41,6 +41,7 @@ const stats = objectStats().analyse(obj); //some statistics
 
 # TODO
  * Review code and check are the missing features
+ * More
 
 ## License
 
